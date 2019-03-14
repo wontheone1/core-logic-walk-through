@@ -6,8 +6,11 @@
 (comment
   "Motivating example problem"
 
-  "Let’s write a program that returns all possible combinations of coins that total to 1 $
-   Assume available coins in $ currency are
+  "Let’s write a program that returns all
+   possible combinations of coins that total to 1 $.
+
+   Assume available coins in $ currency are following
+
    - Cent (0.01)
    - Nickel (0.05)
    - Dime (0.10)
@@ -67,7 +70,8 @@
              (== a q)))
 
 (comment
-  "Core.logic is Declarative (order of constraints doesn’t matter for return value)")
+  "Core.logic is Declarative
+   (order of constraints doesn’t matter for return value)")
 
 (run* [q]
       (fresh [a]
@@ -88,9 +92,7 @@
              (membero q [1 2 3])))
 
 (comment
-  "The final operator, conde (the other two operators were 'fresh' and 'unify'(==)"
-
-  "logical disjunction (OR)"
+  "conde, logical disjunction (OR)"
   "(conde &clauses)"
 
   (run* [q]
@@ -122,7 +124,6 @@
       (conde
         [(== q 1)]
         [(== q 2)]))
-
 
 
 (comment
@@ -158,7 +159,7 @@
       (resto [q 2 3 4] [2 3 4]))
 
 (comment
-  "We've already had a sneak peak at membero:"
+  "We've already had a sneak peak at membero"
 
   (membero x l))
 
@@ -219,6 +220,7 @@
                                          (* 5 num-nickel)))
                  (>= 100 sum-without-cents)
                  (= num-cent (- 100 sum-without-cents))))))
+
 
 (combinations-of-coins-for-cents)
 
