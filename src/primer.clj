@@ -100,7 +100,8 @@
           [goal1 goal2 ...]
           ...))
 
-  "conde succeeds for each clause that succeeds, independently.")
+  "conde succeeds for each clause
+   that succeeds, independently.")
 
 (run* [q]
       (conde
@@ -133,7 +134,8 @@
 
   (conso x r s)
 
-  "It is a function that succeeds only if s is a list with head x and rest r.")
+  "It is a function that succeeds only if
+  s is a list with head x and rest r.")
 
 (run* [q]
       (conso 1 [2 3] q))
@@ -149,7 +151,8 @@
 
   (resto l r)
 
-  "constrains whatever logic variables are present such that r is (rest l) ")
+  "constrains whatever logic variables are
+   present such that r is (rest l) ")
 
 
 (run* [q]

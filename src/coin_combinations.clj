@@ -73,7 +73,8 @@
 (combinations-of-coins-for-cents 19)
 
 (comment
-  "Apply constraints on number of specific types of coins and the value in cents")
+  "Apply constraints on number of specific types
+   of coins and the value in cents")
 
 (defn combinations-of-coins-for-cents
   ([]

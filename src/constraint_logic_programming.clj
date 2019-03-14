@@ -5,10 +5,8 @@
 
 
 (comment
-  "CLP(FD)"
-
-  "`core.logic` now has useful operators for constraint logic programming over finite domains,
-   that is positive integers.
+  "CLP(FD)
+   :constraint logic programming over finite domains(positive integers)
 
    In order to use these finite domain operators on logic vars,
    domains must be declared with `fd/in.`")
@@ -29,10 +27,11 @@
 ; Note that [5 5] is no longer in the set of returned solutions.
 
 (comment
-  "`fd/eq`"
+  "fd/eq
 
-  "fd/eq is a macro that allows you to write arithmetic expressions "
-  "in normal Lisp syntax which will be expanded into the appropriate series of CLP(FD) operators. ")
+   fd/eq is a macro that allows you to write arithmetic expressions
+   in normal Lisp syntax which will be expanded
+   into the appropriate series of CLP(FD) operators. ")
 
 (run* [x y]
       (fd/in x y (fd/interval 0 9))
