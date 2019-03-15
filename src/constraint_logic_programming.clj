@@ -8,6 +8,9 @@
   "CLP(FD)
    :constraint logic programming over finite domains(positive integers)
 
+   Included operators are:
+   +, -, *, quot, ==, !=, <, <=, >, >=, distinct
+
    In order to use these finite domain operators on logic vars,
    domains must be declared with `fd/in.`")
 
