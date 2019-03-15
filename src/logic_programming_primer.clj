@@ -1,4 +1,4 @@
-(ns primer
+(ns logic-programming-primer
   (:require
     [clojure.core.logic :refer [run* == membero fresh conde succeed fail conso resto]]
     [clojure.core.logic.fd :as fd]))

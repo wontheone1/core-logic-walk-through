@@ -46,7 +46,7 @@
 (same-value-in-cents? 100 (combinations-of-coins-for-cents))
 
 (comment
-  "Value in cents as a parameter")
+  "Function that works for arbitrary value of cents?")
 
 (defn combinations-of-coins-for-cents
   ([]
@@ -73,7 +73,7 @@
 (combinations-of-coins-for-cents 19)
 
 (comment
-  "Apply constraints on number of specific types
+  "Apply constraints on the number of specific types
    of coins and the value in cents")
 
 (defn combinations-of-coins-for-cents
