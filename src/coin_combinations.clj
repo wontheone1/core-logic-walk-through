@@ -153,4 +153,5 @@
                   (= num-cent
                      (- value-in-cents sum-without-cents)))))))
 
-(combinations-of-coins-for-cents 43 {:nickel 3 :dime 2})
+(combinations-of-coins-for-cents
+  43 {:dime 2 :nickel 3 })
