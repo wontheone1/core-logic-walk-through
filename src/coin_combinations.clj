@@ -95,10 +95,10 @@
                   (fd/== $ num-$)
                   succeed)
                 (if half-$
-                  (fd/== half-$ num-$)
+                  (fd/== half-$ num-half-$)
                   succeed)
                 (if quarter
-                  (fd/== quarter num-half-$)
+                  (fd/== quarter num-quarter)
                   succeed)
                 (if dime
                   (fd/== dime num-dime)
