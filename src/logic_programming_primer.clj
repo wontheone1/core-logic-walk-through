@@ -1,6 +1,6 @@
 (ns logic-programming-primer
   (:require
-    [clojure.core.logic :refer [run* == membero fresh conde succeed fail conso resto]]))
+    [clojure.core.logic :refer [run* == != membero fresh conde succeed fail conso resto]]))
 
 (comment
   "The example usages")
@@ -14,6 +14,9 @@
 
 (run* [q1 q2]
       (== q1 q2))
+
+(run* [q1 q2]
+      (!= q1 q2))
 
 (run* [q]
       (== q 1)
@@ -55,7 +58,8 @@
 
 (comment
   "Core.logic is Declarative
-   (order of constraints doesn’t matter for return value)")
+   (order of constraints doesn’t matter
+    for return value)")
 
 (run* [q]
       (fresh [a]
@@ -82,6 +86,7 @@
   (run* [q]
         (conde
           [goal1 goal2 ...]
+          [goal3 goal4 ...]
           ...))
 
   "conde succeeds for each clause
