@@ -1,4 +1,5 @@
 (ns logic-programming-primer
+  "code from https://github.com/clojure/core.logic/wiki/A-Core.logic-Primer"
   (:require
     [clojure.core.logic :refer [run* == != membero fresh conde succeed fail conso resto]]))
 
