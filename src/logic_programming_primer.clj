@@ -1,22 +1,6 @@
 (ns logic-programming-primer
   (:require
-    [clojure.core.logic :refer [run* == membero fresh conde succeed fail conso resto]]
-    [clojure.core.logic.fd :as fd]))
-
-(comment
-  "Motivating example problem"
-
-  "Let’s write a program that returns all
-   possible combinations of coins that total to 1 $.
-
-   Assume available coins in $ currency are following
-
-   - Cent (0.01)
-   - Nickel (0.05)
-   - Dime (0.10)
-   - Quarter (0.25)
-   - Half Dollar (0.5)
-   - Dollar (1.0)\n")
+    [clojure.core.logic :refer [run* == membero fresh conde succeed fail conso resto]]))
 
 (comment
   "The example usages")

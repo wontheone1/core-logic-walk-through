@@ -14,6 +14,21 @@
    In order to use these finite domain operators on logic vars,
    domains must be declared with `fd/in.`")
 
+(comment
+  "Motivating example problem"
+
+  "Let’s write a program that returns all
+   possible combinations of coins that total to 1 $.
+
+   Assume available coins in $ currency are following
+
+   - Cent (0.01)
+   - Nickel (0.05)
+   - Dime (0.10)
+   - Quarter (0.25)
+   - Half Dollar (0.5)
+   - Dollar (1.0)\n")
+
 (run* [q]
       (fd/in q (fd/interval 1 5)))
 
