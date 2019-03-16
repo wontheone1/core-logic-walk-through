@@ -37,12 +37,10 @@
       (fd/in x y (fd/interval 1 10))
       (fd/+ x y 10))
 
-(run* [q]
-      (fresh [x y]
-             (fd/in x y (fd/interval 1 10))
-             (fd/+ x y 10)
-             (fd/distinct [x y])
-             (== q [x y])))
+(run* [x y]
+      (fd/in x y (fd/interval 1 10))
+      (fd/+ x y 10)
+      (fd/distinct [x y]))
 ; Note that [5 5] is no longer in the set of returned solutions.
 
 (comment
