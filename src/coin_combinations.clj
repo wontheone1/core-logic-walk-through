@@ -8,7 +8,8 @@
   "Coming back to the motivating example problem")
 
 (defn combinations-of-coins-for-cents []
-  (run* [num-$ num-half-$ num-quarter num-dime num-nickel num-cent]
+  (run* [num-$ num-half-$ num-quarter
+         num-dime num-nickel num-cent]
         (fresh [sum-without-cents]
                (fd/in num-$ (fd/interval 0 1))
                (fd/in num-half-$ (fd/interval 0 2))
@@ -32,7 +33,8 @@
 (comment
   "Check if all vectors indeed sum up to 100 cents")
 
-(defn same-value-in-cents? [value-in-cents num-coin-vectors]
+(defn same-value-in-cents? [value-in-cents
+                            num-coin-vectors]
   (every? (fn [[num-$ num-half-$ num-quarter num-dime num-nickel num-cent]]
             (= value-in-cents
                (+ (* 100 num-$)
@@ -52,15 +54,30 @@
   ([]
    (combinations-of-coins-for-cents 100))
   ([value-in-cents]
-   (run* [num-$ num-half-$ num-quarter num-dime num-nickel num-cent]
+   (run* [num-$ num-half-$ num-quarter
+          num-dime num-nickel num-cent]
          (fresh [sum-without-cents]
-                (fd/in num-$ (fd/interval 0 (int (/ value-in-cents 100))))
-                (fd/in num-half-$ (fd/interval 0 (int (/ value-in-cents 50))))
-                (fd/in num-quarter (fd/interval 0 (int (/ value-in-cents 25))))
-                (fd/in num-dime (fd/interval 0 (int (/ value-in-cents 10))))
-                (fd/in num-nickel (fd/interval 0 (int (/ value-in-cents 5))))
-                (fd/in num-cent (fd/interval 0 value-in-cents))
-                (fd/in sum-without-cents (fd/interval 0 value-in-cents))
+                (fd/in num-$
+                       (fd/interval
+                         0 (int (/ value-in-cents 100))))
+                (fd/in num-half-$
+                       (fd/interval
+                         0 (int (/ value-in-cents 50))))
+                (fd/in num-quarter
+                       (fd/interval
+                         0 (int (/ value-in-cents 25))))
+                (fd/in num-dime
+                       (fd/interval
+                         0 (int (/ value-in-cents 10))))
+                (fd/in num-nickel
+                       (fd/interval
+                         0 (int (/ value-in-cents 5))))
+                (fd/in num-cent
+                       (fd/interval
+                         0 value-in-cents))
+                (fd/in sum-without-cents
+                       (fd/interval
+                         0 value-in-cents))
                 (fd/eq
                   (= sum-without-cents (+ (* 100 num-$)
                                           (* 50 num-half-$)
@@ -68,7 +85,8 @@
                                           (* 10 num-dime)
                                           (* 5 num-nickel)))
                   (>= value-in-cents sum-without-cents)
-                  (= num-cent (- value-in-cents sum-without-cents)))))))
+                  (= num-cent
+                     (- value-in-cents sum-without-cents)))))))
 
 (combinations-of-coins-for-cents 19)
 
@@ -81,16 +99,32 @@
    (combinations-of-coins-for-cents 100 nil))
   ([value-in-cents]
    (combinations-of-coins-for-cents value-in-cents nil))
-  ([value-in-cents {:keys [$ half-$ quarter dime nickel cent]}]
-   (run* [num-$ num-half-$ num-quarter num-dime num-nickel num-cent]
+  ([value-in-cents
+    {:keys [$ half-$ quarter dime nickel cent]}]
+   (run* [num-$ num-half-$ num-quarter
+          num-dime num-nickel num-cent]
          (fresh [sum-without-cents]
-                (fd/in num-$ (fd/interval 0 (int (/ value-in-cents 100))))
-                (fd/in num-half-$ (fd/interval 0 (int (/ value-in-cents 50))))
-                (fd/in num-quarter (fd/interval 0 (int (/ value-in-cents 25))))
-                (fd/in num-dime (fd/interval 0 (int (/ value-in-cents 10))))
-                (fd/in num-nickel (fd/interval 0 (int (/ value-in-cents 5))))
-                (fd/in num-cent (fd/interval 0 value-in-cents))
-                (fd/in sum-without-cents (fd/interval 0 value-in-cents))
+                (fd/in num-$
+                       (fd/interval
+                         0 (int (/ value-in-cents 100))))
+                (fd/in num-half-$
+                       (fd/interval
+                         0 (int (/ value-in-cents 50))))
+                (fd/in num-quarter
+                       (fd/interval
+                         0 (int (/ value-in-cents 25))))
+                (fd/in num-dime
+                       (fd/interval
+                         0 (int (/ value-in-cents 10))))
+                (fd/in num-nickel
+                       (fd/interval
+                         0 (int (/ value-in-cents 5))))
+                (fd/in num-cent
+                       (fd/interval
+                         0 value-in-cents))
+                (fd/in sum-without-cents
+                       (fd/interval
+                         0 value-in-cents))
                 (if $
                   (fd/== $ num-$)
                   succeed)
@@ -116,6 +150,7 @@
                                           (* 10 num-dime)
                                           (* 5 num-nickel)))
                   (>= value-in-cents sum-without-cents)
-                  (= num-cent (- value-in-cents sum-without-cents)))))))
+                  (= num-cent
+                     (- value-in-cents sum-without-cents)))))))
 
 (combinations-of-coins-for-cents 43 {:nickel 3 :dime 2})

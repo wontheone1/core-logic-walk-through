@@ -11,7 +11,8 @@
    Included operators are:
    +, -, *, quot, ==, !=, <, <=, >, >=, distinct
 
-   In order to use these finite domain operators on logic vars,
+   In order to use these finite domain operators
+   on logic vars,
    domains must be declared with `fd/in.`")
 
 (comment
@@ -47,9 +48,12 @@
 (comment
   "fd/eq
 
-   fd/eq is a macro that allows you to write arithmetic expressions
-   in normal Lisp syntax which will be expanded
-   into the appropriate series of CLP(FD) operators. ")
+   fd/eq is a macro that allows you to
+   write arithmetic expressions
+   in normal Lisp syntax which
+   will be expanded
+   into the appropriate series of
+   CLP(FD) operators. ")
 
 (run* [x y]
       (fd/in x y (fd/interval 0 9))
