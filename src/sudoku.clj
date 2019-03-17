@@ -6,10 +6,6 @@
 (comment
   "Example from official wiki(https://github.com/clojure/core.logic/wiki/Examples#sudoku)"
 
-  all
-  "Goals occuring within form a logical conjunction.
-   (but does not create logic variables)"
-
   lvar
   "When called without argument,
    returns an automatically named lvar

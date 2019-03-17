@@ -1,6 +1,6 @@
 (ns coin-combinations
   (:require
-    [clojure.core.logic :refer [run* == membero fresh conde succeed fail conso resto]]
+    [clojure.core.logic :refer [all run* == membero fresh conde succeed fail conso resto]]
     [clojure.core.logic.fd :as fd]))
 
 
@@ -66,7 +66,25 @@
 
 (comment
   "Apply constraints on the number of specific types
-   of coins and the value in cents")
+   of coins and the value in cents"
+
+  all
+  "Goals occuring within form a logical conjunction.
+   (but does not create logic variables)")
+
+(defn- constrain-specified-number-of-coins
+  "Constrains number of coins when specified"
+  [lvars constraints]
+  (if (seq lvars)
+    (let [constraint (first constraints)]
+      (all
+        (if constraint
+          succeed
+          (== (first lvars) constraint))
+        (constrain-specified-number-of-coins
+          (rest lvars)
+          (rest constraints))))
+    succeed))
 
 (defn combinations-of-coins-for-cents-v3
   ([]
@@ -95,6 +113,10 @@
          (fd/in num-cent
                 (fd/interval
                   0 value-in-cents))
+         (constrain-specified-number-of-coins
+           [num-$ num-half-$ num-quarter
+            num-dime num-nickel num-cent]
+           [$ half-$ quarter dime nickel cent])
          (if $
            (fd/== $ num-$)
            succeed)
