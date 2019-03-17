@@ -7,7 +7,7 @@
 (comment
   "Coming back to the motivating example problem")
 
-(defn combinations-of-coins-for-cents []
+(defn combinations-of-coins-for-cents-v1 []
   (run* [num-$ num-half-$ num-quarter
          num-dime num-nickel num-cent]
         (fresh [sum-without-cents]
@@ -28,31 +28,14 @@
                  (= num-cent (- 100 sum-without-cents))))))
 
 
-(combinations-of-coins-for-cents)
-
-(comment
-  "Check if all vectors indeed sum up to 100 cents")
-
-(defn same-value-in-cents? [value-in-cents
-                            num-coin-vectors]
-  (every? (fn [[num-$ num-half-$ num-quarter num-dime num-nickel num-cent]]
-            (= value-in-cents
-               (+ (* 100 num-$)
-                  (* 50 num-half-$)
-                  (* 25 num-quarter)
-                  (* 10 num-dime)
-                  (* 5 num-nickel)
-                  (* num-cent))))
-          num-coin-vectors))
-
-(same-value-in-cents? 100 (combinations-of-coins-for-cents))
+(combinations-of-coins-for-cents-v1)
 
 (comment
   "Function that works for arbitrary value of cents?")
 
-(defn combinations-of-coins-for-cents
+(defn combinations-of-coins-for-cents-v2
   ([]
-   (combinations-of-coins-for-cents 100))
+   (combinations-of-coins-for-cents-v2 100))
   ([value-in-cents]
    (run* [num-$ num-half-$ num-quarter
           num-dime num-nickel num-cent]
@@ -88,17 +71,17 @@
                   (= num-cent
                      (- value-in-cents sum-without-cents)))))))
 
-(combinations-of-coins-for-cents 19)
+(combinations-of-coins-for-cents-v2 19)
 
 (comment
   "Apply constraints on the number of specific types
    of coins and the value in cents")
 
-(defn combinations-of-coins-for-cents
+(defn combinations-of-coins-for-cents-v3
   ([]
-   (combinations-of-coins-for-cents 100 nil))
+   (combinations-of-coins-for-cents-v3 100 nil))
   ([value-in-cents]
-   (combinations-of-coins-for-cents value-in-cents nil))
+   (combinations-of-coins-for-cents-v3 value-in-cents nil))
   ([value-in-cents
     {:keys [$ half-$ quarter dime nickel cent]}]
    (run* [num-$ num-half-$ num-quarter
@@ -153,5 +136,5 @@
                   (= num-cent
                      (- value-in-cents sum-without-cents)))))))
 
-(combinations-of-coins-for-cents
-  43 {:dime 2 :nickel 3 })
+(combinations-of-coins-for-cents-v3
+  43 {:dime 2 :nickel 3})
