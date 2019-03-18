@@ -30,30 +30,32 @@
 (comment
   "Function that works for arbitrary value of cents?")
 
+(defn- constrain-interval-of-num-coins
+  "Constrains number of coins when specified"
+  [total-value-in-cents num-coins coin-denominations]
+  (if (seq num-coins)
+    (let [coin-denomination (first coin-denominations)]
+      (all
+        (fd/in (first num-coins)
+               (fd/interval
+                 0 (int (/ total-value-in-cents coin-denomination))))
+        (constrain-interval-of-num-coins
+          total-value-in-cents
+          (rest num-coins)
+          (rest coin-denominations))))
+    succeed))
+
 (defn combinations-of-coins-for-cents-v2
   ([]
    (combinations-of-coins-for-cents-v2 100))
   ([value-in-cents]
    (run* [num-$ num-half-$ num-quarter
           num-dime num-nickel num-cent]
-         (fd/in num-$
-                (fd/interval
-                  0 (int (/ value-in-cents 100))))
-         (fd/in num-half-$
-                (fd/interval
-                  0 (int (/ value-in-cents 50))))
-         (fd/in num-quarter
-                (fd/interval
-                  0 (int (/ value-in-cents 25))))
-         (fd/in num-dime
-                (fd/interval
-                  0 (int (/ value-in-cents 10))))
-         (fd/in num-nickel
-                (fd/interval
-                  0 (int (/ value-in-cents 5))))
-         (fd/in num-cent
-                (fd/interval
-                  0 value-in-cents))
+         (constrain-interval-of-num-coins
+           value-in-cents
+           [num-$ num-half-$ num-quarter
+            num-dime num-nickel num-cent]
+           [100 50 25 10 5 1])
          (fd/eq
            (= value-in-cents (+ (* 100 num-$)
                                 (* 50 num-half-$)
@@ -95,24 +97,11 @@
     {:keys [$ half-$ quarter dime nickel cent]}]
    (run* [num-$ num-half-$ num-quarter
           num-dime num-nickel num-cent]
-         (fd/in num-$
-                (fd/interval
-                  0 (int (/ value-in-cents 100))))
-         (fd/in num-half-$
-                (fd/interval
-                  0 (int (/ value-in-cents 50))))
-         (fd/in num-quarter
-                (fd/interval
-                  0 (int (/ value-in-cents 25))))
-         (fd/in num-dime
-                (fd/interval
-                  0 (int (/ value-in-cents 10))))
-         (fd/in num-nickel
-                (fd/interval
-                  0 (int (/ value-in-cents 5))))
-         (fd/in num-cent
-                (fd/interval
-                  0 value-in-cents))
+         (constrain-interval-of-num-coins
+           value-in-cents
+           [num-$ num-half-$ num-quarter
+            num-dime num-nickel num-cent]
+           [100 50 25 10 5 1])
          (constrain-specified-number-of-coins
            [num-$ num-half-$ num-quarter
             num-dime num-nickel num-cent]
