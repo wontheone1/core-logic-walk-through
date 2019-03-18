@@ -79,8 +79,8 @@
     (let [constraint (first constraints)]
       (all
         (if constraint
-          succeed
-          (== (first lvars) constraint))
+          (== (first lvars) constraint)
+          succeed)
         (constrain-specified-number-of-coins
           (rest lvars)
           (rest constraints))))
@@ -117,30 +117,13 @@
            [num-$ num-half-$ num-quarter
             num-dime num-nickel num-cent]
            [$ half-$ quarter dime nickel cent])
-         (if $
-           (fd/== $ num-$)
-           succeed)
-         (if half-$
-           (fd/== half-$ num-half-$)
-           succeed)
-         (if quarter
-           (fd/== quarter num-quarter)
-           succeed)
-         (if dime
-           (fd/== dime num-dime)
-           succeed)
-         (if nickel
-           (fd/== nickel num-nickel)
-           succeed)
-         (if cent
-           (fd/== cent num-cent)
-           succeed)
          (fd/eq
            (= value-in-cents (+ (* 100 num-$)
                                 (* 50 num-half-$)
                                 (* 25 num-quarter)
                                 (* 10 num-dime)
-                                (* 5 num-nickel)))))))
+                                (* 5 num-nickel)
+                                num-cent))))))
 
 (combinations-of-coins-for-cents-v3
   43 {:dime 2 :nickel 3})

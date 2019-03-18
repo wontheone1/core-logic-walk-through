@@ -37,6 +37,19 @@
   => true)
 
 (fact
+  "Total number of combinations of
+   combinations-of-coins-for-cents-v2 for 19 cents is 6"
+  (count (cc/combinations-of-coins-for-cents-v2 19))
+  => 6)
+
+(fact
+  "The number of combinations of combinations-of-coins-for-cents-v3
+   is not 0"
+  (count
+    (cc/combinations-of-coins-for-cents-v3 43 {:dime 2}))
+  => 5)
+
+(fact
   "All combinations of combinations-of-coins-for-cents-v3
    sum up to the number received from argument"
   (same-value-in-cents?
