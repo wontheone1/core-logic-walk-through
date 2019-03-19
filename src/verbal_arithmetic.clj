@@ -9,6 +9,7 @@
   ______
    MONEY")
 
+
 (defn send-more-money-solutions []
   (run* [s e n d m o r y]
         (fd/in s e n d m o r y (fd/interval 0 9))

@@ -6,9 +6,11 @@
 (comment
   "The example usages")
 
+
 (comment
   (run* [logic-variable]
-        &logic-expressions))
+        &logic-expressions)
+  )
 
 (run* [q]
       (== q true))
