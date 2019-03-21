@@ -3,7 +3,7 @@
             [n-queens :as n-queens]))
 
 (fact
-  (count (n-queens/solve-8-queens))
+  (count (n-queens/eight-queens-solution))
   => 92)
 
 (fact
@@ -20,15 +20,15 @@
 
 (fact
   "Generalized version works the same"
-  (n-queens/solve-8-queens)
-  => (n-queens/solve-n-queens 8))
+  (n-queens/eight-queens-solution)
+  => (n-queens/n-queens-solution 8))
 
 (fact
-  "Unoptimzied n queens produces
+  "Unoptimized n queens produces
    n! * 'number_of_solutions_from_optimal_implementation'"
-  (count (n-queens/solve-n-queens 4))
+  (count (n-queens/n-queens-solution 4))
   => 2
-  (count (n-queens/unoptimal-solve-n-queens 4))
+  (count (n-queens/unoptimal-n-queens-solution 4))
   => (-> 2
          (* 4)
          (* 3)
@@ -37,11 +37,11 @@
 
 (fact
   "Generalized version with 4 queens"
-  (n-queens/solve-n-queens 4)
+  (n-queens/n-queens-solution 4)
   => [[[1 3] [2 1] [3 4] [4 2]] [[1 2] [2 4] [3 1] [4 3]]])
 
 (fact
-  (n-queens/solve-8-queens)
+  (n-queens/eight-queens-solution)
   =>
   [[[1 4] [2 2] [3 7] [4 3] [5 6] [6 8] [7 5] [8 1]]
    [[1 5] [2 2] [3 4] [4 7] [5 3] [6 8] [7 6] [8 1]]
