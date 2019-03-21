@@ -38,6 +38,16 @@
                (== q [[1 y1] [2 y2] [3 y3] [4 y4] [5 y5] [6 y6] [7 y7] [8 y8]])
                (nqueens q 8))))
 
+(defn solve-n-queens [num-queen]
+  (let [y-positions (repeatedly num-queen lvar)]
+    (run* [q]
+          (== q
+              (vec
+                (map-indexed (fn [i y-pos]
+                               [(inc i) y-pos])
+                             y-positions)))
+          (nqueens q num-queen))))
+
 (defn board-from-solution [solution]
   (reduce
     (fn [board [x y]]
