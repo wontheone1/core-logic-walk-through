@@ -25,19 +25,18 @@
                   (!= (- y1 y) (- x x1)))
          (safe [x y] r)))
 
-(defne nqueens [l]
-       ([()])
-       ([[[x y] . others]]
-         (nqueens others)
-         (membero y [1 2 3 4 5 6 7 8])
+(defne nqueens [l num-queen]
+       ([() num-queen])
+       ([[[x y] . others] num-queen]
+         (nqueens others num-queen)
+         (membero y (range 1 (inc num-queen)))
          (safe [x y] others)))
 
-
-(defn solve-nqueens []
+(defn solve-8-queens []
   (run* [q]
         (fresh [y1 y2 y3 y4 y5 y6 y7 y8]
                (== q [[1 y1] [2 y2] [3 y3] [4 y4] [5 y5] [6 y6] [7 y7] [8 y8]])
-               (nqueens q))))
+               (nqueens q 8))))
 
 (defn board-from-solution [solution]
   (reduce

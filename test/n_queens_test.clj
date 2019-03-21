@@ -3,7 +3,7 @@
             [n-queens :as n-queens]))
 
 (fact
-  (count (n-queens/solve-nqueens))
+  (count (n-queens/solve-8-queens))
   => 92)
 
 (fact
@@ -19,7 +19,7 @@
       ["1" "0" "0" "0" "0" "0" "0" "0"]])
 
 (fact
-  (n-queens/solve-nqueens)
+  (n-queens/solve-8-queens)
   =>
   [[[1 4] [2 2] [3 7] [4 3] [5 6] [6 8] [7 5] [8 1]]
    [[1 5] [2 2] [3 4] [4 7] [5 3] [6 8] [7 6] [8 1]]
