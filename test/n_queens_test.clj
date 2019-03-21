@@ -24,6 +24,18 @@
   => (n-queens/solve-n-queens 8))
 
 (fact
+  "Unoptimzied n queens produces
+   n! * 'number_of_solutions_from_optimal_implementation'"
+  (count (n-queens/solve-n-queens 4))
+  => 2
+  (count (n-queens/unoptimal-solve-n-queens 4))
+  => (-> 2
+         (* 4)
+         (* 3)
+         (* 2)
+         (* 1)))
+
+(fact
   "Generalized version with 4 queens"
   (n-queens/solve-n-queens 4)
   => [[[1 3] [2 1] [3 4] [4 2]] [[1 2] [2 4] [3 1] [4 3]]])

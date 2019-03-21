@@ -48,6 +48,39 @@
                              y-positions)))
           (nqueens q num-queen))))
 
+(comment
+  "Unoptimal solutions")
+
+(defne unoptimal-safe [q others]
+       ([_ ()])
+       ([[x y] [[x1 y1] . r]]
+         (!= x x1)
+         (!= y y1)
+         (project [y y1 x x1]
+                  (!= (- y1 y) (- x1 x))
+                  (!= (- y1 y) (- x x1)))
+         (unoptimal-safe [x y] r)))
+
+(defne unoptimal-nqueens [l num-queen]
+       ([() num-queen])
+       ([[[x y] . others] num-queen]
+         (unoptimal-nqueens others num-queen)
+         (membero x (range 1 (inc num-queen)))
+         (membero y (range 1 (inc num-queen)))
+         (unoptimal-safe [x y] others)))
+
+(defn unoptimal-solve-n-queens [num-queen]
+  (let [x-positions (repeatedly num-queen lvar)
+        y-positions (repeatedly num-queen lvar)]
+    (run* [q]
+          (== q
+              (mapv (fn [x-pos y-pos]
+                      [x-pos y-pos])
+                    x-positions
+                    y-positions))
+          (unoptimal-nqueens q num-queen))))
+
+
 (defn board-from-solution [solution]
   (reduce
     (fn [board [x y]]
