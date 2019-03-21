@@ -89,6 +89,15 @@
   "Goals occuring within form a logical conjunction.
    (but does not create logic variables)")
 
+(defn- coin-vector->coin-map [[num-$ num-half-$ num-quarter
+                               num-dime num-nickel num-cent]]
+  {:$       num-$
+   :half-$  num-half-$
+   :quarter num-quarter
+   :dime    num-dime
+   :nickel  num-nickel
+   :cent    num-cent})
+
 (defn- constrain-specified-number-of-coins
   "Constrains number of coins when specified"
   [lvars constraints]
@@ -110,24 +119,25 @@
    (combinations-of-coins-for-cents-v3-optimized value-in-cents nil))
   ([value-in-cents
     {:keys [$ half-$ quarter dime nickel cent]}]
-   (run* [num-$ num-half-$ num-quarter
-          num-dime num-nickel num-cent]
-         (constrain-interval-of-num-coins
-           value-in-cents
-           [num-$ num-half-$ num-quarter
-            num-dime num-nickel num-cent]
-           [100 50 25 10 5 1])
-         (constrain-specified-number-of-coins
-           [num-$ num-half-$ num-quarter
-            num-dime num-nickel num-cent]
-           [$ half-$ quarter dime nickel cent])
-         (fd/eq
-           (= value-in-cents (+ (* 100 num-$)
-                                (* 50 num-half-$)
-                                (* 25 num-quarter)
-                                (* 10 num-dime)
-                                (* 5 num-nickel)
-                                num-cent))))))
+   (map coin-vector->coin-map
+        (run* [num-$ num-half-$ num-quarter
+               num-dime num-nickel num-cent]
+              (constrain-interval-of-num-coins
+                value-in-cents
+                [num-$ num-half-$ num-quarter
+                 num-dime num-nickel num-cent]
+                [100 50 25 10 5 1])
+              (constrain-specified-number-of-coins
+                [num-$ num-half-$ num-quarter
+                 num-dime num-nickel num-cent]
+                [$ half-$ quarter dime nickel cent])
+              (fd/eq
+                (= value-in-cents (+ (* 100 num-$)
+                                     (* 50 num-half-$)
+                                     (* 25 num-quarter)
+                                     (* 10 num-dime)
+                                     (* 5 num-nickel)
+                                     num-cent)))))))
 
 #_(combinations-of-coins-for-cents-v3-optimized
     43 {:dime 2 :nickel 3})
@@ -139,23 +149,24 @@
    (combinations-of-coins-for-cents-v3 value-in-cents nil))
   ([value-in-cents
     {:keys [$ half-$ quarter dime nickel cent]}]
-   (run* [num-$ num-half-$ num-quarter
-          num-dime num-nickel num-cent]
-         (fd/in num-$
-                num-half-$
-                num-quarter
-                num-dime
-                num-nickel
-                num-cent
-                (fd/interval 0 value-in-cents))
-         (constrain-specified-number-of-coins
-           [num-$ num-half-$ num-quarter
-            num-dime num-nickel num-cent]
-           [$ half-$ quarter dime nickel cent])
-         (fd/eq
-           (= value-in-cents (+ (* 100 num-$)
-                                (* 50 num-half-$)
-                                (* 25 num-quarter)
-                                (* 10 num-dime)
-                                (* 5 num-nickel)
-                                num-cent))))))
+   (map coin-vector->coin-map
+        (run* [num-$ num-half-$ num-quarter
+               num-dime num-nickel num-cent]
+              (fd/in num-$
+                     num-half-$
+                     num-quarter
+                     num-dime
+                     num-nickel
+                     num-cent
+                     (fd/interval 0 value-in-cents))
+              (constrain-specified-number-of-coins
+                [num-$ num-half-$ num-quarter
+                 num-dime num-nickel num-cent]
+                [$ half-$ quarter dime nickel cent])
+              (fd/eq
+                (= value-in-cents (+ (* 100 num-$)
+                                     (* 50 num-half-$)
+                                     (* 25 num-quarter)
+                                     (* 10 num-dime)
+                                     (* 5 num-nickel)
+                                     num-cent)))))))

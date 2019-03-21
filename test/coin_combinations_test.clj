@@ -2,16 +2,34 @@
   (:require [midje.sweet :refer :all]
             [coin-combinations :as cc]))
 
+(defn- sum-coin-map-value [{:keys [$ half-$ quarter dime nickel cent]}]
+  (+ (* 100 $)
+     (* 50 half-$)
+     (* 25 quarter)
+     (* 10 dime)
+     (* 5 nickel)
+     (* cent)))
+
 (defn same-value-in-cents? [value-in-cents
                             num-coin-vectors]
-  (every? (fn [[num-$ num-half-$ num-quarter num-dime num-nickel num-cent]]
-            (= value-in-cents
-               (+ (* 100 num-$)
-                  (* 50 num-half-$)
-                  (* 25 num-quarter)
-                  (* 10 num-dime)
-                  (* 5 num-nickel)
-                  (* num-cent))))
+  (every? (fn [coin-combination]
+            (cond
+              (vector? coin-combination)
+              (let [[num-$ num-half-$ num-quarter
+                     num-dime num-nickel num-cent]
+                    coin-combination]
+                (= value-in-cents
+                   (sum-coin-map-value
+                     {:$       num-$
+                      :half-$  num-half-$
+                      :quarter num-quarter
+                      :dime    num-dime
+                      :nickel  num-nickel
+                      :cent    num-cent})))
+
+              (map? coin-combination)
+              (= value-in-cents
+                 (sum-coin-map-value coin-combination))))
           num-coin-vectors))
 
 (fact
@@ -61,10 +79,9 @@
   "All combinations of combinations-of-coins-for-cents-v3
    satisfies specified number of coins"
   (every?
-    (fn [[num-$ num-half-$ num-quarter
-          num-dime num-nickel num-cent]]
-      (and (= 2 num-dime)
-           (= 3 num-nickel)))
+    (fn [{:keys [$ half-$ quarter dime nickel cent]}]
+      (and (= 2 dime)
+           (= 3 nickel)))
     (cc/combinations-of-coins-for-cents-v3-optimized 43 {:dime 2 :nickel 3}))
   => true)
 
