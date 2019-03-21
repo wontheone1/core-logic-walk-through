@@ -139,7 +139,6 @@
    (combinations-of-coins-for-cents-v3 value-in-cents nil))
   ([value-in-cents
     {:keys [$ half-$ quarter dime nickel cent]}]
-   (println :ddd)
    (run* [num-$ num-half-$ num-quarter
           num-dime num-nickel num-cent]
          (fd/in num-$
