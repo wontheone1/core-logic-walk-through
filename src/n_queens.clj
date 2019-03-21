@@ -32,6 +32,7 @@
          (membero y [1 2 3 4 5 6 7 8])
          (safe [x y] others)))
 
+
 (defn solve-nqueens []
   (run* [q]
         (fresh [y1 y2 y3 y4 y5 y6 y7 y8]
