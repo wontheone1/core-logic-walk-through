@@ -17,7 +17,7 @@
 (fact
   "Total number of combinations of
    combinations-of-coins-for-cents-v1 is 293"
-  (count (cc/combinations-of-coins-for-cents-v1))
+  (count (cc/combinations-of-coins-for-cents-v1-optimized))
   => 293)
 
 (fact
@@ -25,7 +25,7 @@
    sum up to 100 cents"
   (same-value-in-cents?
     100
-    (cc/combinations-of-coins-for-cents-v1))
+    (cc/combinations-of-coins-for-cents-v1-optimized))
   => true)
 
 (fact
@@ -33,20 +33,20 @@
    sum up to the number received from argument"
   (same-value-in-cents?
     19
-    (cc/combinations-of-coins-for-cents-v2 19))
+    (cc/combinations-of-coins-for-cents-v2-optimized 19))
   => true)
 
 (fact
   "Total number of combinations of
    combinations-of-coins-for-cents-v2 for 19 cents is 6"
-  (count (cc/combinations-of-coins-for-cents-v2 19))
+  (count (cc/combinations-of-coins-for-cents-v2-optimized 19))
   => 6)
 
 (fact
   "The number of combinations of combinations-of-coins-for-cents-v3
    is not 0"
   (count
-    (cc/combinations-of-coins-for-cents-v3 43 {:dime 2}))
+    (cc/combinations-of-coins-for-cents-v3-optimized 43 {:dime 2}))
   => 5)
 
 (fact
@@ -54,7 +54,7 @@
    sum up to the number received from argument"
   (same-value-in-cents?
     43
-    (cc/combinations-of-coins-for-cents-v3 43 {:dime 2 :nickel 3}))
+    (cc/combinations-of-coins-for-cents-v3-optimized 43 {:dime 2 :nickel 3}))
   => true)
 
 (fact
@@ -65,5 +65,17 @@
           num-dime num-nickel num-cent]]
       (and (= 2 num-dime)
            (= 3 num-nickel)))
-    (cc/combinations-of-coins-for-cents-v3 43 {:dime 2 :nickel 3}))
+    (cc/combinations-of-coins-for-cents-v3-optimized 43 {:dime 2 :nickel 3}))
   => true)
+
+(facts
+  "Optimized and non-optimized versions work the same way"
+  (fact
+    "v1"
+    (cc/combinations-of-coins-for-cents-v1-optimized)
+    => (cc/combinations-of-coins-for-cents-v1))
+
+  (fact
+    "v3"
+    (cc/combinations-of-coins-for-cents-v3-optimized 50 {:nickel 2})
+    => (cc/combinations-of-coins-for-cents-v3 50 {:nickel 2})))
