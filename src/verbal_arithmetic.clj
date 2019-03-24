@@ -38,15 +38,15 @@
             (fd/+ vhead run-sum sum)
             (sumo vtail run-sum)])))
 
-(defn productsumo [vars dens sum]
-  (fresh [vhead vtail dhead dtail product run-sum]
+(defn product-sumo [vars multipliers sum]
+  (fresh [vhead vtail mhead mtail product run-sum]
          (conde
            [(emptyo vars) (== sum 0)]
            [(conso vhead vtail vars)
-            (conso dhead dtail dens)
-            (fd/* vhead dhead product)
+            (conso mhead mtail multipliers)
+            (fd/* vhead mhead product)
             (fd/+ product run-sum sum)
-            (productsumo vtail dtail run-sum)])))
+            (product-sumo vtail mtail run-sum)])))
 
 (defn magnitudes [n]
   (reverse (take n (iterate #(* 10 %) 1))))
@@ -54,20 +54,20 @@
 (defn cryptarithmetic [& words]
   (let [distinct-chars (distinct (apply concat words))
         char->lvar (zipmap distinct-chars (repeatedly (count distinct-chars) lvar))
-        lvars (vals char->lvar)
+        char-lvars (vals char->lvar)
         first-letter-lvars (distinct (map #(char->lvar (first %)) words))
         sum-lvars (repeatedly (count words) lvar)
         word-lvars (map #(map char->lvar %) words)]
     (run* [q]
-          (everyg #(fd/in % (fd/interval 0 9)) lvars)       ;; digits 0-9
+          (everyg #(fd/in % (fd/interval 0 9)) char-lvars)       ;; digits 0-9
           (everyg #(fd/!= % 0) first-letter-lvars)          ;; no leading zeroes
-          (fd/distinct lvars)                               ;; only distinct digits
-          (everyg (fn [[sum l]]                             ;; calculate sums for each word
-                    (productsumo l (magnitudes (count l)) sum))
+          (fd/distinct char-lvars)                               ;; only distinct digits
+          (everyg (fn [[sum word-lvar]]                             ;; calculate sums for each word
+                    (product-sumo word-lvar (magnitudes (count word-lvar)) sum))
                   (map vector sum-lvars word-lvars))
-          (fresh [s]
-                 (sumo (butlast sum-lvars) s)               ;; sum all input word sums
-                 (fd/== s (last sum-lvars)))                ;; input word sums must equal last word sum
+          (fresh [sums-but-last]
+                 (sumo (butlast sum-lvars) sums-but-last)               ;; sum all input word sums
+                 (fd/== sums-but-last (last sum-lvars)))                ;; input word sums must equal last word sum
           (== q char->lvar))))
 
 (defn pprint-answer [char->digit words]
