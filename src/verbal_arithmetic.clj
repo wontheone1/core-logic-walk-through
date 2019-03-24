@@ -88,6 +88,31 @@
                              [line
                               (str "= " (pad (last nums)))])))))
 
+(defn pprint-all-answers [char->digit-seq words]
+  (let [width (apply max (map count words))
+        width-format (str "%" width "s")
+        pad #(format width-format %)
+        line (apply str (repeat (+ 2 width) \-))]
+    (println
+      (clojure.string/join
+        \newline
+        (concat
+          (map #(str "+ " (pad %)) (butlast words))
+          [line
+           (str "= " (pad (last words)))]))
+      \newline)
+    (doseq [char->digit char->digit-seq
+            :let [nums (map #(apply str (map char->digit %))
+                            words)]]
+      (println
+        (clojure.string/join
+          \newline
+          (concat
+            (map #(str "+ " (pad %)) (butlast nums))
+            [line
+             (str "= " (pad (last nums)))]))
+        \newline))))
+
 #_(cryptarithmetic "cp" "is" "fun" "true")
 
 #_(doseq [char->digit (cryptarithmetic "cp" "is" "fun" "true")]
