@@ -75,14 +75,18 @@
                   words)
         width (apply max (map count nums))
         width-format (str "%" width "s")
-        pad #(format width-format %)]
+        pad #(format width-format %)
+        line (apply str (repeat (+ 2 width) \-))]
     (println
       (clojure.string/join \newline
                            (concat
+                             (map #(str "+ " (pad %)) (butlast words))
+                             [line
+                              (str "= " (pad (last words)))]
+                             [""]
                              (map #(str "+ " (pad %)) (butlast nums))
-                             [(apply str (repeat (+ 2 width) \-))
-                              (str "= " (pad (last nums)))]))
-      \newline)))
+                             [line
+                              (str "= " (pad (last nums)))])))))
 
 #_(cryptarithmetic "cp" "is" "fun" "true")
 
